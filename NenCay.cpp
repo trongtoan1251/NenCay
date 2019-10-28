@@ -11,6 +11,15 @@ canh taoCanh(int x,int y){
 	a.y=y;
 	return a;
 }
+int soCanhConLai(canh* a, int soCanh){
+	int count=0;
+	for(int i=0;i<soCanh;i++){
+		if(a[i].x>0&&a[i].y>0){
+			count++;
+		}
+	}
+	return count;
+}
 int main(){
 	int soCanh;
 	scanf("%d",&soCanh);
@@ -26,7 +35,9 @@ int main(){
 		p[y]++;
 		q[i]=taoCanh(x,y);
 	}
-	for(int i=1;i<soDinh;i++){
+	int i=1;
+	printf("prufer code\n");
+	while(soCanhConLai(q,soCanh)){
 		if(p[i]==1){
 			for(int j=0;j<soCanh;j++){
 				if(q[j].x==i){
@@ -35,15 +46,20 @@ int main(){
 					p[q[j].y]--;
 					q[j].x=-1;
 					q[j].y=-1;
+					i=0;
+					break;
 				}else if(q[j].y==i){
 					printf("%d ",q[j].x);
 					p[q[j].x]--;
 					p[q[j].y]--;
 					q[j].x=-1;
 					q[j].y=-1;
+					i=0;
+					break;
 				}
 			}
 		}
+		i++;
 	}
 	free(q);
 	free(p);
